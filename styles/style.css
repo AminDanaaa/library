@@ -1,18 +1,146 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
 :root {
-    --main-background: #2b2c28
+    --main-background: #2b2c28;
+    --topbar-background: #339989;
+    --button-background: #7de2d1;
+    --button-hover: rgb(185, 235, 230);
+    --button-click: rgb(210, 235, 230);
+    --font-color: #131515;
+    --palette-white: #EEEEEE;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "DM Sans", sans-serif;
+}
+
+* button:hover {
+    cursor: pointer;
 }
 
 body {
-    font-family: "DM Sans", sans-serif;
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     background-color: var(--main-background);
+    color: var(--font-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.no-select {
+    user-select: none;
+}
+
+.topbar {
+    background-color: var(--topbar-background);
+    width: 100%;
+    position: sticky;
+    top: 0;
+    height: 8vh;
+    min-height: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 32px;
+}
+
+.add-book-btn {
+    background-color: var(--button-background);
+    border: 1px solid var(--main-background);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 4px;
+    padding-inline: 14px;
+    padding-block: 4px;
+    font-weight: bold;
+}
+
+.add-book-btn:hover {
+    background-color: var(--button-hover);
+}
+
+.add-book-btn:active {
+    background-color: var(--button-click);
+}
+
+.container {
+    display: grid;
+    gap: 36px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 400px));
+    width: 95%;
+    padding: 36px;
+    justify-content: center;
+}
+
+.book-card {
+    min-width: 200px;
+    min-height: 200px;
+    border: 1px solid black;
+    margin: 10px;
+    background-color: var(--palette-white);
+    border: 1px solid white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-inline: 20px;
+    padding-top: 14px;
+    padding-bottom: 8px;
+}
+
+.book-card div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+}
+
+.book-card .status-button {
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 4px;
+    width: 160px;
+    background: transparent;
+}
+
+.book-card .is-read {
+    border: 2px solid green;
+    color: green;
+}
+
+.book-card .is-read:hover {
+    background-color: green;
+    color: white;
+}
+
+.book-card .is-not-read {
+    border: 2px solid red;
+    color: red;
+}
+
+.book-card .is-not-read:hover {
+    background-color: red;
+    color: white;
+}
+
+.book-card .remove-button {
+    border: none;
+}
+
+.book-card .remove-button:hover {
+    animation: vibrate 0.12s ease-in-out infinite alternate;
+}
+
+@keyframes vibrate {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(1px, -1px); }
+  50%  { transform: translate(-1px, 1px); }
+  75%  { transform: translate(1px, 1px); }
+  100% { transform: translate(0, 0); }
 }
