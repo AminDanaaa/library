@@ -4,11 +4,11 @@
     --main-background: #2b2b3c;
     --topbar-background: black;
     --button-background: #FFFFFF;
-    --button-hover: #ADE8F4;
-    --button-click: #90E0EF;
     --font-color-headings: #eaeaf5;
     --font-color-paragraphs: #c8c8dc;
     --card-background: #3a3a5c;
+    --input-background: #dee4f2;
+    --dark-red: #ff5a7a;
 }
 
 * {
@@ -140,12 +140,12 @@ body p {
 }
 
 .book-card .is-not-read {
-    border: 2px solid red;
-    color: red;
+    border: 2px solid var(--dark-red);
+    color: var(--dark-red);
 }
 
 .book-card .is-not-read:hover {
-    background-color: red;
+    background-color: var(--dark-red);
     color: white;
 }
 
@@ -186,4 +186,136 @@ body p {
   box-shadow: 
     8px 8px 18px rgba(163, 177, 198, 0.7),
     -8px -8px 18px rgba(255, 255, 255, 0.9);
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 20px;
+}
+
+.modal-overlay-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    position: relative;
+    max-width: 280px;
+    width: 100%;
+    background: var(--font-color-paragraphs);
+    border-radius: 20px;
+    padding: 22px 28px 8px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.92) translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 0.8rem;
+}
+
+.modal-overlay-active .modal-box {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.modal-box-top {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #3a3a5c;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form-buttons {
+    border-top: 1px solid #3a3a5c;
+    padding-block: 14px;
+    width: 100%;
+}
+
+.form-container {
+    padding-top: 18px;
+    width: 100%;
+    display: grid;
+    gap: 18px;
+}
+
+.modal-form {
+    width: 100%;
+    display: grid;
+    gap: 8px;
+}
+
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 16px;
+    gap: 6px;
+}
+
+form {
+    font-family: "DM Sans", sans-serif;
+}
+
+form input[type=text], input[type=number] {
+    border-style: none;
+    border-radius: 5px;
+    background-color: var(--font-color-headings);
+    height: 26px;
+    padding-inline: 6px;
+}
+
+.form-checkbox {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+    padding-inline: 16px;
+    padding-block: 8px;
+}
+
+.form-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+}
+
+.form-buttons button {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 12px;
+    padding: 8px 20px;
+}
+
+.form-buttons .submit-btn {
+    flex: 2;
+}
+
+.form-buttons .cancel-btn {
+    flex: 1;
+}
+
+.form-buttons .submit-btn:hover {
+    border-color: limegreen;
+    color: green;
+}
+
+.form-buttons .cancel-btn:hover {
+    border-color: var(--dark-red);
+    color: red;
 }

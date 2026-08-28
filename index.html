@@ -8,6 +8,39 @@
     <title>My Book Library</title>
 </head>
 <body>
+    <div class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-box-top">
+                <h3 class="no-select">Add New Book</h3>
+            </div>
+            <div class="modal-form">
+                <form id="form-new-book" method="POST" action="./Main.js">
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label class="label-group no-select" for="book-title">Title</label>
+                            <input type="text" id="book-title" name="book-title" required>  
+                        </div>
+                        <div class="form-group">
+                            <label class="label-group no-select" for="book-author">Author</label>
+                            <input type="text" id="book-author" name="book-author" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="label-group no-select" for="book-pages">Pages</label>
+                            <input type="number" id="book-pages" name="book-pages" required min="1">
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="book-status" name="book-status">
+                            <label class="label-group  no-select" for="book-status">Already read?</label>
+                        </div>
+                        <div class="form-buttons">
+                            <button class="submit-btn no-select">Add Book</button>
+                            <button class="cancel-btn no-select">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="topbar neumorph-topbar">
         <h1 class="no-select">Library</h1>
         <button class="add-book-btn no-select neumorph-btn">Add Book

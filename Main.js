@@ -1,12 +1,24 @@
 // Imports and global constants
 const deleteBtnSVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path fill="#ff5a7a" d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>';
 const container = document.querySelector(".container");
+const addBookBtn = document.querySelector(".add-book-btn");
+const modalOverlay = document.querySelector(".modal-overlay");
+const addBookBtnModal = document.querySelector(".submit-btn");
+const cancelBtnModal = document.querySelector(".cancel-btn");
+const form = document.getElementById("form-new-book");
+const formTitle = document.getElementById("book-title");
+const formAuthor = document.getElementById("book-author");
+const formPages = document.getElementById("book-pages");
+const formCheckbox = document.getElementById("book-status");
 const myLibrary = [];
 
 
 
 // Main.js:
 function Book(title, author, pages, isRead) {
+    if (!new.target) {
+        throw Error("You must use the 'new' operator to call the constructor");
+    }
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
@@ -97,6 +109,29 @@ function updateLibrary() {
         let [btnStatus, btnRemove] = createLowerCard(myLibrary[book], bottomDiv);
     }
 }
+
+
+
+// Modal logic for adding a new book:
+addBookBtn.addEventListener('click', () => {
+    modalOverlay.classList.toggle("modal-overlay-active");
+});
+
+
+
+cancelBtnModal.addEventListener('click', (event) => {
+    event.preventDefault();
+    modalOverlay.classList.toggle("modal-overlay-active");
+});
+
+
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    addBookToLibrary(formTitle.value, formAuthor.value, Number(formPages.value), formCheckbox.checked);
+    modalOverlay.classList.toggle("modal-overlay-active");
+    form.reset();
+});
 
 
 
