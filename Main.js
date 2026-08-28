@@ -10,7 +10,7 @@ const formTitle = document.getElementById("book-title");
 const formAuthor = document.getElementById("book-author");
 const formPages = document.getElementById("book-pages");
 const formCheckbox = document.getElementById("book-status");
-const myLibrary = [];
+let myLibrary = [];
 
 
 
@@ -22,8 +22,18 @@ function Book(title, author, pages, isRead) {
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
-    this.pages = pages;
+    this.pages = Number(pages);
     this.isRead = isRead;
+}
+
+
+
+Book.prototype.changeStatus = function() {
+    if (this.isRead === true) {
+        this.isRead = false;
+    } else {
+        this.isRead = true;
+    }
 }
 
 
@@ -107,21 +117,51 @@ function updateLibrary() {
         appendCardChildren(card, title, author, pages, bottomDiv);
         innerCardUpdate(myLibrary[book], title, author, pages);
         let [btnStatus, btnRemove] = createLowerCard(myLibrary[book], bottomDiv);
+        addStatusListener(myLibrary[book], btnStatus);
+        addRemoveListener(myLibrary[book].id, btnRemove);
     }
+}
+
+
+
+// Swapping reading status logic:
+function addStatusListener(book, btn) {
+    btn.addEventListener('click', () => {
+        btn.classList.toggle("is-read");
+        btn.classList.toggle("is-not-read");
+        book.changeStatus();
+        if (!book.isRead) {
+            btn.innerText = `It's not Read`;
+        } else {
+            btn.innerText = `It's Read`;
+        }
+    });
+}
+
+
+
+// Remove button logic for each card in a function:
+function addRemoveListener(bookToRemove, btn) {
+    btn.addEventListener('click', () => {
+        myLibrary = myLibrary.filter(book => book.id !== bookToRemove);
+        updateLibrary();
+        console.log(`The UUID: [${bookToRemove}] has been removed.`);
+    });
 }
 
 
 
 // Modal logic for adding a new book:
 addBookBtn.addEventListener('click', () => {
-    modalOverlay.classList.toggle("modal-overlay-active");
+    modalOverlay.classList.add("modal-overlay-active");
 });
 
 
 
 cancelBtnModal.addEventListener('click', (event) => {
     event.preventDefault();
-    modalOverlay.classList.toggle("modal-overlay-active");
+    modalOverlay.classList.remove("modal-overlay-active");
+    form.reset();
 });
 
 
@@ -135,11 +175,9 @@ form.addEventListener('submit', (e) => {
 
 
 
-// Home:
-const makeDummyCard = (number) => {
-    for (let index = 0; index < number; index++) {
-        addBookToLibrary(`Book ${index}`, "Amin Dana", "100", true);
-    }
-}
-
-makeDummyCard(14);
+// Making some dummy books:
+addBookToLibrary("1984", "George Orwell", 328, true);
+addBookToLibrary("Ulysses", "James Joyce", 1040, false);
+addBookToLibrary("In Search of Lost Time", "Marcel Proust", 4215, false);
+addBookToLibrary("Shahnameh", "Ferdowsi", 928, true);
+addBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", 180, false);
