@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
 :root {
-    --main-background: #2b2c28;
-    --topbar-background: #339989;
-    --button-background: #7de2d1;
-    --button-hover: rgb(185, 235, 230);
-    --button-click: rgb(210, 235, 230);
-    --font-color: #131515;
-    --palette-white: #EEEEEE;
+    --main-background: #2b2b3c;
+    --topbar-background: black;
+    --button-background: #FFFFFF;
+    --button-hover: #ADE8F4;
+    --button-click: #90E0EF;
+    --font-color-headings: #eaeaf5;
+    --font-color-paragraphs: #c8c8dc;
+    --card-background: #3a3a5c;
 }
 
 * {
@@ -25,10 +26,14 @@ body {
     min-height: 100vh;
     width: 100%;
     background-color: var(--main-background);
-    color: var(--font-color);
+    color: var(--font-color-headings);
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+body p {
+    color: var(--font-color-paragraphs);
 }
 
 .no-select {
@@ -37,9 +42,11 @@ body {
 
 .topbar {
     background-color: var(--topbar-background);
+    color: #eaeaf5;
     width: 100%;
     position: sticky;
     top: 0;
+    z-index: 100;
     height: 8vh;
     min-height: 45px;
     display: flex;
@@ -48,25 +55,39 @@ body {
     padding-inline: 32px;
 }
 
+.neumorph-topbar {
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.6),      /* Dark shadow dropping down */
+        0 1px 2px rgba(255, 255, 255, 0.08);    /* Subtle light catch on the bottom lip */
+}
+
 .add-book-btn {
     background-color: var(--button-background);
-    border: 1px solid var(--main-background);
-    border-radius: 10px;
+    border-radius: 16px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 4px;
-    padding-inline: 14px;
-    padding-block: 4px;
+    padding-inline: 16px;
+    padding-block: 6px;
     font-weight: bold;
 }
 
-.add-book-btn:hover {
-    background-color: var(--button-hover);
+.neumorph-btn {
+    border: none;
+    cursor: pointer;
+    box-shadow: 
+        9px 9px 16px rgba(0, 0, 0, 0.5),
+        -9px -9px 16px rgba(80, 80, 120, 0.3);
+    transition: all 0.15s ease;
 }
 
-.add-book-btn:active {
-    background-color: var(--button-click);
+.neumorph-btn:hover {
+  transform: translateY(-2px);
+}
+
+.neumorph-btn:active {
+    padding-block: 10px;
 }
 
 .container {
@@ -83,8 +104,7 @@ body {
     min-height: 200px;
     border: 1px solid black;
     margin: 10px;
-    background-color: var(--palette-white);
-    border: 1px solid white;
+    background-color: var(--card-background);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -110,12 +130,12 @@ body {
 }
 
 .book-card .is-read {
-    border: 2px solid green;
-    color: green;
+    border: 2px solid limegreen;
+    color: limegreen;
 }
 
 .book-card .is-read:hover {
-    background-color: green;
+    background-color: limegreen;
     color: white;
 }
 
@@ -131,6 +151,7 @@ body {
 
 .book-card .remove-button {
     border: none;
+    background: transparent !important;
 }
 
 .book-card .remove-button:hover {
@@ -143,4 +164,26 @@ body {
   50%  { transform: translate(-1px, 1px); }
   75%  { transform: translate(1px, 1px); }
   100% { transform: translate(0, 0); }
+}
+
+.neumorph-card {
+    border: none;
+    padding: 14px 36px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 
+        9px 9px 16px rgba(0, 0, 0, 0.5),
+        -9px -9px 16px rgba(80, 80, 120, 0.3);
+    /* box-shadow: 
+        6px 6px 12px rgba(163, 177, 198, 0.6),
+        -6px -6px 12px rgba(255, 255, 255, 0.8); */
+    transition: all 0.15s ease;
+}
+
+.neumorph-card:hover {
+  box-shadow: 
+    8px 8px 18px rgba(163, 177, 198, 0.7),
+    -8px -8px 18px rgba(255, 255, 255, 0.9);
 }
