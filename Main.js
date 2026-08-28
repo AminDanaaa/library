@@ -1,7 +1,11 @@
+// Imports and global constants
+const deleteBtnSVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>';
 const container = document.querySelector(".container");
 const myLibrary = [];
-const deleteBtnSVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>';
 
+
+
+// Main.js:
 function Book(title, author, pages, isRead) {
     this.id = crypto.randomUUID();
     this.title = title;
@@ -10,64 +14,96 @@ function Book(title, author, pages, isRead) {
     this.isRead = isRead;
 }
 
+
+
 function addBookToLibrary(title, author, pages, isRead) {
     const newBook = new Book(title, author, pages, isRead);
     myLibrary.push(newBook);
     updateLibrary();
 }
 
+
+
+function createCard() {
+    let card = document.createElement("div");
+    card.classList.add("book-card");
+    container.appendChild(card);
+    return card;
+}
+
+
+
+function createCardElements() {
+    return {
+        title: document.createElement("h1"),
+        author: document.createElement("p"),
+        pages: document.createElement("p"),
+        bottomDiv: document.createElement("div")
+    };
+}
+
+
+
+function appendCardChildren(card, title, author, pages, bottomDiv) {
+    card.appendChild(title);
+    card.appendChild(author);
+    card.appendChild(pages);
+    card.appendChild(bottomDiv);
+}
+
+
+
+function innerCardUpdate(book, title, author, pages) {
+    title.innerHTML = book.title;
+    author.innerHTML = `Written by: ${book.author}`;
+    pages.textContent = `This book has ${book.pages} pages.`;
+}
+
+
+
+function createLowerCard(book, bottomDiv) {
+    // Status Button:
+    let btnStatus = document.createElement("button");
+    btnStatus.classList.add("status-button");
+    if (book.isRead) {
+        btnStatus.classList.add("is-read");
+        btnStatus.innerText = `It's Read`;
+    } else {
+        btnStatus.classList.add("is-not-read");
+        btnStatus.innerText = `It's not Read`;
+    }
+    bottomDiv.appendChild(btnStatus);
+    
+    // Remove Button:
+    let btnRemove = document.createElement("button");
+    btnRemove.classList.add("remove-button");
+    btnRemove.innerHTML = deleteBtnSVG; 
+    bottomDiv.appendChild(btnRemove);
+
+    // Returns the button objects
+    return [btnStatus, btnRemove];
+}
+
+
+
 function updateLibrary() {
     container.innerHTML = "";
     for (book in myLibrary) {
-        let thisBookCard = document.createElement("div");
-        thisBookCard.classList.add("book-card");
-
-        let bookTitle = document.createElement("h1");
-        let bookAuthor = document.createElement("p");
-        let bookPages = document.createElement("p");
-        let buttomDiv = document.createElement("div");
-
-        thisBookCard.appendChild(bookTitle);
-        thisBookCard.appendChild(bookAuthor);
-        thisBookCard.appendChild(bookPages);
-        thisBookCard.appendChild(buttomDiv);
-
-        bookTitle.innerHTML = myLibrary[book].title;
-        bookAuthor.innerHTML = `Written by: ${myLibrary[book].author}`;
-        bookPages.textContent = `This book has ${myLibrary[book].pages} pages.`;
-
-        let readStatusButton = document.createElement("button");
-        let removeButton = document.createElement("button");
-
-        buttomDiv.appendChild(readStatusButton);
-        buttomDiv.appendChild(removeButton);
-
-        removeButton.classList.add("remove-button");
-        removeButton.innerHTML = deleteBtnSVG;
-
-        readStatusButton.innerText = myLibrary[book].isRead ? `It's Read` : `It's not Read`;
-        readStatusButton.classList.add("status-button");
-        if (myLibrary[book].isRead) {
-            readStatusButton.classList.add("is-read");
-        } else {
-            readStatusButton.classList.add("is-not-read");
-        }
-
-        container.appendChild(thisBookCard);
+        let card = createCard();
+        let {title, author, pages, bottomDiv} = createCardElements();
+        appendCardChildren(card, title, author, pages, bottomDiv);
+        innerCardUpdate(myLibrary[book], title, author, pages);
+        let [btnStatus, btnRemove] = createLowerCard(myLibrary[book], bottomDiv);
     }
 }
 
-addBookToLibrary("Book-01", "TestAuthor", "100", true);
-addBookToLibrary("Book-02", "TestAuthor", "100", false);
-addBookToLibrary("Book-03", "TestAuthor", "100", true);
-addBookToLibrary("Book-04", "TestAuthor", "100", false);
-addBookToLibrary("Book-05", "TestAuthor", "100", true);
-addBookToLibrary("Book-06", "TestAuthor", "300", false);
-addBookToLibrary("Book-07", "TestAuthor", "100", false);
-addBookToLibrary("Book-08", "TestAuthor", "100", false);
-addBookToLibrary("Book-09", "TestAuthor", "100", false);
-addBookToLibrary("Book-10", "TestAuthor", "100", false);
-addBookToLibrary("Book-11", "TestAuthor", "100", false);
-addBookToLibrary("Book-12", "TestAuthor", "100", false);
-addBookToLibrary("Book-13", "TestAuthor", "200", false);
-addBookToLibrary("Book-14", "TestAuthor", "100", false);
+
+
+// Home:
+const makeDummyCard = (number) => {
+    for (let index = 0; index < number; index++) {
+        addBookToLibrary(`Book ${index}`, "Amin Dana", "100", true);
+    }
+}
+
+makeDummyCard(14);
