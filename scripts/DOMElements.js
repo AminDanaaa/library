@@ -1,0 +1,9 @@
+export const container = document.querySelector(".container");
+export const addBookBtn = document.querySelector(".add-book-btn");
+export const modalOverlay = document.querySelector(".modal-overlay");
+export const cancelBtnModal = document.querySelector(".cancel-btn");
+export const form = document.getElementById("form-new-book");
+export const formTitle = document.getElementById("book-title");
+export const formAuthor = document.getElementById("book-author");
+export const formPages = document.getElementById("book-pages");
+export const formCheckbox = document.getElementById("book-status");

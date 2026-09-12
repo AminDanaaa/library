@@ -1,33 +1,8 @@
 // Imports and global constants
-const deleteBtnSVG = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path fill="#ff5a7a" d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>';
-const container = document.querySelector(".container");
-const addBookBtn = document.querySelector(".add-book-btn");
-const modalOverlay = document.querySelector(".modal-overlay");
-const addBookBtnModal = document.querySelector(".submit-btn");
-const cancelBtnModal = document.querySelector(".cancel-btn");
-const form = document.getElementById("form-new-book");
-const formTitle = document.getElementById("book-title");
-const formAuthor = document.getElementById("book-author");
-const formPages = document.getElementById("book-pages");
-const formCheckbox = document.getElementById("book-status");
+import Book from "./Classes/Book.js";
+import { deleteBtnSVG } from "./SVG/SVG.js";
+import * as DOM from "./DOMElements.js";
 let myLibrary = [];
-
-
-
-// Main.js:
-class Book {
-    constructor(title, author, pages, isRead) {
-        this.id = crypto.randomUUID();
-        this.title = title;
-        this.author = author;
-        this.pages = Number(pages);
-        this.isRead = isRead;
-    }
-
-    changeStatus() {
-        this.isRead = !this.isRead;
-    }
-}
 
 
 
@@ -43,7 +18,7 @@ function createCard() {
     let card = document.createElement("div");
     card.classList.add("book-card");
     card.classList.add("neumorph-card");
-    container.appendChild(card);
+    DOM.container.appendChild(card);
     return card;
 }
 
@@ -103,8 +78,8 @@ function createLowerCard(book, bottomDiv) {
 
 
 function updateLibrary() {
-    container.innerHTML = "";
-    for (book in myLibrary) {
+    DOM.container.innerHTML = "";
+    for (let book in myLibrary) {
         let card = createCard();
         let {title, author, pages, bottomDiv} = createCardElements();
         appendCardChildren(card, title, author, pages, bottomDiv);
@@ -145,25 +120,25 @@ function addRemoveListener(bookToRemove, btn) {
 
 
 // Modal logic for adding a new book:
-addBookBtn.addEventListener('click', () => {
-    modalOverlay.classList.add("modal-overlay-active");
+DOM.addBookBtn.addEventListener('click', () => {
+    DOM.modalOverlay.classList.add("modal-overlay-active");
 });
 
 
 
-cancelBtnModal.addEventListener('click', (event) => {
+DOM.cancelBtnModal.addEventListener('click', (event) => {
     event.preventDefault();
-    modalOverlay.classList.remove("modal-overlay-active");
-    form.reset();
+    DOM.modalOverlay.classList.remove("modal-overlay-active");
+    DOM.form.reset();
 });
 
 
 
-form.addEventListener('submit', (e) => {
+DOM.form.addEventListener('submit', (e) => {
     e.preventDefault();
-    addBookToLibrary(formTitle.value, formAuthor.value, Number(formPages.value), formCheckbox.checked);
-    modalOverlay.classList.toggle("modal-overlay-active");
-    form.reset();
+    addBookToLibrary(DOM.formTitle.value, DOM.formAuthor.value, Number(DOM.formPages.value), DOM.formCheckbox.checked);
+    DOM.modalOverlay.classList.toggle("modal-overlay-active");
+    DOM.form.reset();
 });
 
 
