@@ -3,7 +3,7 @@
 :root {
     --main-background: #2b2b3c;
     --topbar-background: black;
-    --button-background: #FFFFFF;
+    --button-background: rgb(148, 118, 255);
     --font-color-headings: #eaeaf5;
     --font-color-paragraphs: #c8c8dc;
     --card-background: #3a3a5c;
@@ -73,6 +73,11 @@ body p {
     font-weight: bold;
 }
 
+.add-book-btn:hover {
+    background-color: var(--font-color-headings);
+    transition-duration: 0.5s;
+}
+
 .neumorph-btn {
     border: none;
     cursor: pointer;
@@ -137,6 +142,7 @@ body p {
 .book-card .is-read:hover {
     background-color: limegreen;
     color: white;
+    transition-duration: 0.5s;
 }
 
 .book-card .is-not-read {
@@ -147,6 +153,7 @@ body p {
 .book-card .is-not-read:hover {
     background-color: var(--dark-red);
     color: white;
+    transition-duration: 0.5s;
 }
 
 .book-card .remove-button {
@@ -318,11 +325,13 @@ form input[type=text], input[type=number] {
 .form-buttons .submit-btn:hover {
     border-color: limegreen;
     color: green;
+    transition-duration: 0.5s;
 }
 
 .form-buttons .cancel-btn:hover {
     border-color: var(--dark-red);
     color: red;
+    transition-duration: 0.5s;
 }
 
 /* Checkbox style */
